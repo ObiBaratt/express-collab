@@ -18,6 +18,30 @@ app.get('/:id', (req, res) => {
   }
 })
 
+  app.get('/countdown/:mo/:day/:yr', (req, res) => {
+
+    const input = `${req.params.mo}/${req.params.day}/${req.params.yr}`
+    const future = new Date(input)
+    const today = new Date()
+    const countdown = (future - today)
+
+    const seconds = Math.floor(countdown / 1000)
+    const minutes = Math.floor(seconds / 60)
+    const hours = Math.floor(minutes / 60)
+    const days = Math.floor(hours / 24);
+    const years = Math.floor(days / 365);
+
+    
+    res.send({
+      "input": input,
+      "seconds": seconds % 60,
+      "minutes": minutes % 60,
+      "hours": hours % 24,
+      "days": days % 365,
+      "years": years,
+    })
+  })
+
 app.listen(3000, () => {
   console.log('Express server listening on port 3000');
 });
