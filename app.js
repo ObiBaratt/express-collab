@@ -1,6 +1,9 @@
 const express = require('express');
 const app = express();
 const data = require('./data.json');
+const cors = require('cors')
+const PORT = process.env.PORT || 3000
+
 
 app.get('/', (req, res) => {
   res.send(data);
@@ -57,6 +60,6 @@ app.get('/:id', (req, res) => {
     })
   })
 
-app.listen(3000, () => {
-  console.log('Express server listening on port 3000');
+app.listen(PORT, () => {
+  console.log(`Express server listening on port ${PORT}`);
 });
