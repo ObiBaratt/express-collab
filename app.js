@@ -19,6 +19,21 @@ app.get('/:id', (req, res) => {
 })
 
   app.get('/countdown/:mo/:day/:yr', (req, res) => {
+    months30 = ['4', '6',' 9', '11'] 
+
+    let validDays = months30.includes(req.params.mo) ? 30 : 31
+
+    if (req.params.mo === '2') {
+      if (parseInt(req.params.yr) % 4 === 0){
+        validDays = 29
+      } else { 
+        validDays = 28
+      }
+    }
+
+    if (req.params.mo > 12 || req.params.day > validDays || !req.params.yr) {
+      res.send("Error in your date input, use the format MM/DD/YYYY. Months with 30 days: 4, 6, 9, 11. Month 2 has 28 days normally, and 29 days in years divisible by 4. All other months have 31 days.")
+    }
 
     const input = `${req.params.mo}/${req.params.day}/${req.params.yr}`
     const future = new Date(input)
